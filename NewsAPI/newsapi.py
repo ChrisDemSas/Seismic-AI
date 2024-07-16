@@ -6,8 +6,8 @@
 
 import requests
 import pandas as pd
-import boto3
 import json
+from exceptions import FreeLimitExceededError
 
 class NewsAPI:
     """Implementation of the News API class.
@@ -23,11 +23,11 @@ class NewsAPI:
 
         Attributes:
             api_key: API Key from newsapi.org
+            counter: The number of times this API was called today.
         """
 
         self.api_key = api_key
-        self.data = []
-        self.dataframe = {}
+        counter = 0
     
     def check_connection(self) -> str:
         """Check to see if connection is available."""
@@ -63,7 +63,15 @@ class NewsAPI:
             endpoints: An endpoint, either 'everythong' or 'top-headlines'.
             parameters: A dictionary of parameters."""
         
-        url = self._construct_url(endpoints, parameters)
-        request = requests.get(url, headers = {'Authorization': self.api_key})
+        if self.counter < 100:
+            url = self._construct_url(endpoints, parameters)
+            request = requests.get(url, headers = {'Authorization': self.api_key})
 
-        return request.json()
+            return request.json()
+        else:
+            raise FreeLimitExceededError(self.counter)
+    
+    def add_counter(self) -> None:
+        """Add +1 to the counter."""
+
+        self.counter += 1
