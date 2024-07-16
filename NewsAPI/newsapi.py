@@ -32,6 +32,15 @@ class NewsAPI:
     def check_connection(self) -> str:
         """Check to see if connection is available."""
 
+        url = 'https://newsapi.org/v2/everything?q=bitcoin'
+        request = requests.get(url, headers = {'Authorization': self.api_key})
+        status_code = request.status_code
+
+        if status_code == 200:
+            return 'Connection Successful'
+        else:
+            return f'Error: {status_code}'
+
     def _construct_url(self, endpoints: str, parameters: dict) -> str:
         """Take in endpoints and parameters to construct a URL.
         
@@ -39,12 +48,22 @@ class NewsAPI:
             endpoints: An endpoint, either 'everythong' or 'top-headlines'.
             parameters: A dictionary of parameters.
         """
-    
+        
+        url = f'https://newsapi.org/v2/{endpoints}?'
+
+        for item in parameters:
+            url += f'{item}={parameters[item]}&'
+        
+        return url[:-1]
+
     def search(self, endpoints: str, parameters: dict) -> json:
         """Take in endpoints and parameters to return the data.
         
         Attributes:
             endpoints: An endpoint, either 'everythong' or 'top-headlines'.
-            parameters: A dictionary of parameters.
-        """
+            parameters: A dictionary of parameters."""
+        
+        url = self._construct_url(endpoints, parameters)
+        request = requests.get(url, headers = {'Authorization': self.api_key})
 
+        return request.json()
