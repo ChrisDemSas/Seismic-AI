@@ -26,7 +26,7 @@ def test_simple_pipeline(api_key: str) -> str:
     data = d.search('everything', parameters)
 
     # Save file
-    filepath = '/Users/chrissastropranoto/Desktop/Seismic/etl_pipeline/data/test.json'
+    filepath = ''
 
     save_file(data, filepath)
 
@@ -38,7 +38,7 @@ if __name__ == "__main__":
 
     # Test Transform
 
-    #filepath = '/Users/chrissastropranoto/Desktop/Seismic/etl_pipeline/data/test.json'
+    #filepath = ''
     #file = read_file(filepath)
 
     #dataset = process_data(file)

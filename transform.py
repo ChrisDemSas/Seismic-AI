@@ -129,13 +129,6 @@ def summarize_content(content: pd.DataFrame, summarizer: str, min_length: int, m
     """
 
     agent = Summarizer(summarizer, content, min_length, max_length)
-    summarized_content = agent.summarize('content') # content is the column name
+    agent.summarize('content') # content is the column name
 
-    return agent.dataset
-
-
-
-
-
-
-
+    return agent.return_dataset()
