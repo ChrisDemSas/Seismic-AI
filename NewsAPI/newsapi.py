@@ -7,7 +7,7 @@
 import requests
 import pandas as pd
 import json
-from exceptions import FreeLimitExceededError
+from .exceptions import FreeLimitExceededError
 
 class NewsAPI:
     """Implementation of the News API class.
@@ -27,7 +27,7 @@ class NewsAPI:
         """
 
         self.api_key = api_key
-        counter = 0
+        self.counter = 0
     
     def check_connection(self) -> str:
         """Check to see if connection is available."""
@@ -37,8 +37,10 @@ class NewsAPI:
         status_code = request.status_code
 
         if status_code == 200:
+            
             return 'Connection Successful'
         else:
+
             return f'Error: {status_code}'
 
     def _construct_url(self, endpoints: str, parameters: dict) -> str:
@@ -69,9 +71,11 @@ class NewsAPI:
 
             return request.json()
         else:
+
             raise FreeLimitExceededError(self.counter)
     
     def add_counter(self) -> None:
         """Add +1 to the counter."""
 
         self.counter += 1
+

@@ -1,1 +1,1 @@
-from newsapi import NewsAPI
+from .newsapi import NewsAPI
