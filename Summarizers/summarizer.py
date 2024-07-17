@@ -73,7 +73,7 @@ class Summarizer:
     
         return self._cleanup(summary)
     
-    def summarize(self, col_name: str) -> dict:
+    def summarize(self, col_name: str) -> None:
         """Summarize the contents of a column.
         
         Attributes:
@@ -81,6 +81,11 @@ class Summarizer:
         """
 
         self.dataset[col_name].apply(self._summarize)
+    
+    def return_dataset(self) -> pd.DataFrame:
+        """Return self.dataset."""
+
+        return self.dataset
     
 
 

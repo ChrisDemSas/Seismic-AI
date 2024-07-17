@@ -9,10 +9,6 @@ import uuid
 import pandas as pd
 from Summarizers.summarizer import Summarizer
 
-filepath = '/Users/chrissastropranoto/Desktop/Seismic/etl_pipeline/data/test.json'
-
-file = read_file(filepath)
-
 def process_data(file: dict) -> dict:
     """Take in the unprocessed data and return a dictionary containing the processed data.
     
@@ -74,7 +70,7 @@ def _generate_id(dataset: dict) -> dict:
 
     return ids
 
-def split(dataset: dict, length: int) -> pd.DataFrame:
+def split(dataset: dict) -> pd.DataFrame:
     """Take in a dataset and split it into schemas:
     
     Fact Table:
@@ -86,7 +82,7 @@ def split(dataset: dict, length: int) -> pd.DataFrame:
         source_id
         source
         url
-        urlToimage
+        urlToImage
     
     Meta Table:
         meta_id
@@ -104,9 +100,9 @@ def split(dataset: dict, length: int) -> pd.DataFrame:
         length: The length of the dataset.
     """
 
-    source_table = ['source', 'url', 'urlToimage']
+    source_table = ['source', 'url', 'urlToImage']
     meta_table = ['title', 'author', 'publishedAt']
-    content_table = ['content_id', 'description', 'content']
+    content_table = ['description', 'content']
 
     sources = _filter(dataset, source_table)
     meta = _filter(dataset, meta_table)
@@ -122,12 +118,22 @@ def split(dataset: dict, length: int) -> pd.DataFrame:
     
     return pd.DataFrame(fact_table), pd.DataFrame(sources), pd.DataFrame(meta), pd.DataFrame(content)
 
-def summarize_content(content: pd.DataFrame) -> pd.DataFrame:
+def summarize_content(content: pd.DataFrame, summarizer: str, min_length: int, max_length: int) -> pd.DataFrame:
     """Take in the contents dataframe and summarize the articles.
     
     Attributes:
         content: A dataframe containing contents of the articles.
+        summarizer: Choice of summarizer (T5, Bart, Pegasus)
+        min_length: The minimum token length for a single summary of an article.
+        max_length: The maximum token length for a single summary of an article.
     """
+
+    agent = Summarizer(summarizer, content, min_length, max_length)
+    summarized_content = agent.summarize('content') # content is the column name
+
+    return agent.dataset
+
+
 
 
 
