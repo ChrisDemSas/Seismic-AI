@@ -36,7 +36,7 @@ class Scrapers:
 
         return self.urls
     
-    def append_urls(self, url: str) -> None:
+    def append_url(self, url: str) -> None:
         """Append a url.
         
         Attributes:

@@ -4,7 +4,7 @@
 #
 ###################################################################
 
-from scraper import Scrapers
+from .scraper import Scrapers
 from bs4 import BeautifulSoup
 import requests
 import time
@@ -58,7 +58,3 @@ class MothershipScraper(Scrapers):
             html = request.content
             soup = BeautifulSoup(html, 'lxml')
             self.data.append(soup)
-
-if __name__ == '__main__':
-    scraper = MothershipScraper()
-    print(scraper._obtain_urls())
