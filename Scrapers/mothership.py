@@ -7,8 +7,6 @@
 from .scraper import Scrapers
 from bs4 import BeautifulSoup
 import requests
-import time
-from datetime import datetime, timedelta
 
 class MothershipScraper(Scrapers):
     """Implementation of the Mothership Scraper.

@@ -46,7 +46,7 @@ class Scrapers:
         self.urls.append(url)
     
     def _obtain_urls(self) -> list:
-        """Obtain the URLs from latest news. """
+        """Obtain the URLs from latest news."""
 
         raise NotImplementedError
     

@@ -6,11 +6,7 @@
 
 import utils.utilities as ut
 from Scrapers.mothership import MothershipScraper
-import json
-import os
-import pandas as pd
-import time
-from datetime import datetime, timedelta
+from datetime import timedelta
 
 def extract(source: str, timing: timedelta) -> list:
     """Take in a source and timing and collect the data."""
