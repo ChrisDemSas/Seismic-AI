@@ -15,7 +15,6 @@ class AWSClient:
         aws_session_token: Session Token for temporary credentials.
         service: Current AWS Service Served 
         client: Current Client
-    
     """
 
     def __init__(self, aws_access_key: str, aws_secret_access_key: str, aws_session_token: str) -> None:
