@@ -1,3 +1,9 @@
+###################################################################
+#
+# Summarizer Class
+#
+###################################################################
+
 import pandas as pd
 from transformers import AutoTokenizer, AutoModelWithLMHead
 from rouge import Rouge
