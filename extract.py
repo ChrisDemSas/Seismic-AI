@@ -12,16 +12,20 @@ import pandas as pd
 import time
 from datetime import datetime, timedelta
 
+def extract(source: str, timing: timedelta) -> list:
+    """Take in a source and timing and collect the data."""
 
-def extract_mothership(timing: timedelta) -> None:
-    """Extract Webpages from mothership."""
-
-    scraper = MothershipScraper()
+    if source == 'Mothership':
+        scraper = MothershipScraper()
+    else:
+        raise NotImplementedError
+    
     urls = scraper.obtain_urls()
-
     for item in urls:
-        date = ut.convert_datetime(urls[item], 'Mothership')
-        if ut.check_datetime(date): # True
-            scraper.append_url(urls[item])
-            
+        date = ut.convert_datetime(urls[item], source)
+        if ut.check_datetime(date, timing): # True
+            scraper.append_url(item)
 
+    scraper.crawl()
+
+    return scraper.return_data()
