@@ -10,7 +10,7 @@ import utils.utilities as ut
 import utils.aws as aws
 import utils.bigquery as bq
 
-def upload_to_s3(client: aws.AWSClient, parameters: dict, html: bool = True, csv: bool = True) -> None:
+def upload_to_s3(client: aws.AWSClient, parameters: dict, filetype: str) -> None:
     """Take in a filepath and upload this to AWS S3.
     
     Attributes:
@@ -18,13 +18,13 @@ def upload_to_s3(client: aws.AWSClient, parameters: dict, html: bool = True, csv
         parameters: Parameters which include: file_name, bucket, key. 
     """
 
-    if html:
+    if filetype == 'html':
         for path in os.listdir("data/html"):
             filepath = f'data/html/{path}'
             client.upload_file(filepath, parameters)
             ut.delete_file(filepath)
 
-    else:
+    elif filetype == 'csv':
         for path in os.listdir("data/csv"):
             filepath = f'data/csv/{path}'
             client.upload_file(filepath, parameters)
@@ -38,6 +38,7 @@ def upload_to_bigquery(client: bq.BigQueryClient, dataframe: pd.DataFrame, table
     """
 
     result = client.load(dataframe, table_id)
+
 
 
 

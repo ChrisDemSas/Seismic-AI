@@ -8,8 +8,9 @@ import json
 import os
 import pandas as pd
 from datetime import datetime, timedelta
+from typing import Any
 
-def save_file(data: dict, filepath: str, indent: int = 4) -> None:
+def save_file(data: Any, filepath: str, filetype: str) -> None:
     """Take in a data and a filepath, and then save the data in a filepath.
     
     Attributes:
@@ -18,8 +19,13 @@ def save_file(data: dict, filepath: str, indent: int = 4) -> None:
         indent: indent for the json file
     """
 
-    with open(filepath, 'w') as file:
-        json.dump(data, file, indent = indent)
+    if filetype == 'csv':
+        data = pd.read_csv(data)
+        data.to_csv(filepath)
+
+    elif filetype == 'html':
+        with open(filepath, 'wb+') as f:
+            f.write(data.content)
 
 def read_file(filepath: str) -> json.dumps:
     """Take in a filepath and read file.
