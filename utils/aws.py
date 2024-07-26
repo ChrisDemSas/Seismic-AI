@@ -18,7 +18,7 @@ class AWSClient:
         client: Current Client
     """
 
-    def __init__(self, aws_access_key: str, aws_secret_access_key: str, aws_session_token: str) -> None:
+    def __init__(self, aws_access_key: str, aws_secret_access_key: str, aws_session_token: str = None) -> None:
         """Initialize the AWSClient class.
         
         Attributes:
@@ -41,12 +41,20 @@ class AWSClient:
             service: AWS service
         """
 
-        self.client = boto3.client(
+        if self.aws_session_token is None:
+            self.client = boto3.client(
             service,
             aws_access_key_id = self.aws_access_key,
             aws_secret_access_key = self.aws_secret_access_key,
-            aws_session_token = self.aws_session_token
         )
+        else:
+
+            self.client = boto3.client(
+                service,
+                aws_access_key_id = self.aws_access_key,
+                aws_secret_access_key = self.aws_secret_access_key,
+                aws_session_token = self.aws_session_token
+            )
 
         self.service = service
     
