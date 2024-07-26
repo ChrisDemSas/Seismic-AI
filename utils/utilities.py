@@ -7,7 +7,6 @@
 import json
 import os
 import pandas as pd
-import time
 from datetime import datetime, timedelta
 
 def save_file(data: dict, filepath: str, indent: int = 4) -> None:
@@ -37,6 +36,15 @@ def read_file(filepath: str) -> json.dumps:
         data = pd.read_csv(filepath)
 
     return data
+
+def delete_file(filepath: str) -> None:
+    """Take in a filepath and delete it.
+    
+    Attributes:
+        filepath: The filepath of the file that is to be deleted.
+    """
+
+    os.remove(filepath)
 
 def _convert_datetime_mothership(date: str) -> datetime:
     """Take in a date and return a datetime.
