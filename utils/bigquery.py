@@ -8,7 +8,7 @@ import pandas as pd
 from google.cloud import bigquery
 from google.oauth2 import service_account
 
-class BigQuery:
+class BigQueryClient:
     """Implementation of the BigQuery class.
     
     Attributes:
