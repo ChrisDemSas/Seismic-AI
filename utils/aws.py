@@ -82,7 +82,7 @@ class AWSClient:
         
         Attributes:
             filepath: The data's file path.
-            parameters: Parameters which include: file_name, bucket, object_name.
+            parameters: Parameters which include: file_name, bucket, key.
         """
 
         if self.service == 's3':
