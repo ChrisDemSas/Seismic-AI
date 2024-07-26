@@ -44,7 +44,15 @@ def upload_to_bigquery(client: bq.BigQueryClient, dataframe: pd.DataFrame, table
     result = client.load(dataframe, table_id)
 
 def save_locally(data: Any, filepath: str, filetype: str) -> None:
-    """Take in a data """
+    """Take in a piece of data and save locally.
+    
+    Attributes:
+        data: A data that is to be saved
+        filepath: A filepath of where the data should be saved
+        filetype: The filetype (csv or html)
+    """
+
+    ut.save_file(data, filepath, filetype)
 
 
 
