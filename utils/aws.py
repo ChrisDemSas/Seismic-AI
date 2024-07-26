@@ -5,6 +5,7 @@
 ###################################################################
 
 import boto3
+from typing import Any
 
 class AWSClient:
     """Implementation of the AWSClient class.
@@ -62,14 +63,14 @@ class AWSClient:
         
         Attributes:
             data: The data's file path.
-            parameters: Parameters which include: file_name, bucket, object_name.
+            parameters: Parameters which include: file_name, bucket, key.
         """
 
         bucket = parameters['bucket']
         self.client.upload_file(filepath, bucket)
 
     def upload_file(self, filepath: str, parameters: dict) -> None:
-        """Upload a file to AWS Aurora or AWS S3.
+        """Upload a file to a AWS storage system.
         
         Attributes:
             filepath: The data's file path.
