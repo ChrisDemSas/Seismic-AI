@@ -1,6 +1,11 @@
 pandas
 requests
-boto3
+google
+google.cloud-cloud
+google.cloud-bigquery
+google.cloud-storage
+google-oauth2-tool
 transformers
 rouge
 bs4
+boto3
