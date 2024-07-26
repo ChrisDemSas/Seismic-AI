@@ -16,7 +16,7 @@ def save_file(data: Any, filepath: str, filetype: str) -> None:
     Attributes:
         data: json or DataFrame
         filepath: Filepath of place to save.
-        indent: indent for the json file
+        filetype: Filetype (csv or html)
     """
 
     if filetype == 'csv':
